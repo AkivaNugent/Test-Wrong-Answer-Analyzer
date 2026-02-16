@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { BookOpen, Calculator, FileText } from "lucide-react"
 import { LsatLrForm } from "@/components/forms/lsat-lr-form"
 import { SatMathForm } from "@/components/forms/sat-math-form"
 import { McatCarsForm } from "@/components/forms/mcat-cars-form"
-import { AnalysisPanel } from "@/components/analysis-panel"
+import { AnalysisPanel, type ChatMessage } from "@/components/analysis-panel"
 
 const TABS = [
   {
@@ -38,8 +38,102 @@ type TabId = (typeof TABS)[number]["id"]
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<TabId>("lsat")
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
+  const [loading, setLoading] = useState(false)
+  const [conversationHistory, setConversationHistory] = useState<
+    { role: string; content: string }[]
+  >([])
 
   const current = TABS.find((t) => t.id === activeTab)!
+
+  // Called by the form when API analysis completes (initial submission)
+  const handleAnalysisComplete = useCallback(
+    (analysisText: string, history: { role: string; content: string }[]) => {
+      if (analysisText.trim()) {
+        setChatMessages((prev) => [
+          ...prev,
+          { role: "assistant" as const, content: analysisText },
+        ])
+      }
+      setConversationHistory(history)
+      setLoading(false)
+    },
+    []
+  )
+
+  // Called by the form right before the API call starts
+  const handleAnalysisStart = useCallback(() => {
+    setLoading(true)
+  }, [])
+
+  // Reset everything for a new question
+  const handleReset = useCallback(() => {
+    setChatMessages([])
+    setLoading(false)
+    setConversationHistory([])
+  }, [])
+
+  // Called from the chat input for follow-up questions
+  const handleFollowUp = useCallback(
+    async (followUpText: string) => {
+      // 1. Show user message immediately
+      setChatMessages((prev) => [
+        ...prev,
+        { role: "user" as const, content: followUpText },
+      ])
+      setLoading(true)
+
+      // 2. Build updated history for the backend
+      const updatedHistory = [
+        ...conversationHistory,
+        { role: "user", content: followUpText },
+      ]
+
+      try {
+        const response = await fetch("http://localhost:5000/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            testType: activeTab,
+            formData: {},
+            conversationHistory: updatedHistory,
+          }),
+        })
+
+        const data = await response.json()
+
+        if (data.success) {
+          // 3. Append assistant response (preserving all previous messages)
+          setChatMessages((prev) => [
+            ...prev,
+            { role: "assistant" as const, content: data.analysis },
+          ])
+          setConversationHistory(data.conversationHistory)
+        } else {
+          setChatMessages((prev) => [
+            ...prev,
+            {
+              role: "assistant" as const,
+              content: data.error || "Analysis failed. Please try again.",
+            },
+          ])
+        }
+      } catch (error) {
+        console.error("Follow-up error:", error)
+        setChatMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant" as const,
+            content:
+              "Sorry, I could not process your follow-up. Please make sure the backend is running.",
+          },
+        ])
+      } finally {
+        setLoading(false)
+      }
+    },
+    [activeTab, conversationHistory]
+  )
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -69,7 +163,12 @@ export default function Page() {
                   key={tab.id}
                   role="tab"
                   aria-selected={isActive}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => {
+                    setActiveTab(tab.id)
+                    setChatMessages([])
+                    setLoading(false)
+                    setConversationHistory([])
+                  }}
                   className="relative flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all"
                   style={
                     isActive
@@ -111,18 +210,41 @@ export default function Page() {
                 {current.label}
               </div>
 
-              {activeTab === "lsat" && <LsatLrForm />}
-              {activeTab === "sat" && <SatMathForm />}
-              {activeTab === "mcat" && <McatCarsForm />}
+              {activeTab === "lsat" && (
+                <LsatLrForm
+                  onAnalysisComplete={handleAnalysisComplete}
+                  onAnalysisStart={handleAnalysisStart}
+                  onReset={handleReset}
+                  conversationHistory={conversationHistory}
+                  hasAnalysis={chatMessages.length > 0}
+                />
+              )}
+              {activeTab === "sat" && (
+                <SatMathForm
+                  onReset={handleReset}
+                  hasAnalysis={chatMessages.length > 0}
+                />
+              )}
+              {activeTab === "mcat" && (
+                <McatCarsForm
+                  onReset={handleReset}
+                  hasAnalysis={chatMessages.length > 0}
+                />
+              )}
             </section>
 
-            {/* Right: Analysis placeholder */}
+            {/* Right: Chat Analysis */}
             <aside
               className="w-full lg:w-[40%]"
-              aria-label="Analysis results"
+              aria-label="Analysis chat"
             >
               <div className="sticky top-6 h-[calc(100vh-10rem)]">
-                <AnalysisPanel accentColor={current.accentHex} />
+                <AnalysisPanel
+                  accentColor={current.accentHex}
+                  messages={chatMessages}
+                  loading={loading}
+                  onFollowUp={handleFollowUp}
+                />
               </div>
             </aside>
           </div>

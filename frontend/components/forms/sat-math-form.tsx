@@ -11,7 +11,12 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 
-export function SatMathForm() {
+interface SatMathFormProps {
+  onReset?: () => void
+  hasAnalysis?: boolean
+}
+
+export function SatMathForm({ onReset, hasAnalysis = false }: SatMathFormProps) {
   return (
     <form
       className="flex flex-col gap-5"
@@ -102,12 +107,24 @@ export function SatMathForm() {
         />
       </div>
 
-      <Button
-        type="submit"
-        className="mt-2 w-full rounded-xl bg-[--sat-accent] text-white hover:bg-[--sat-accent-hover] sm:w-auto sm:self-start"
-      >
-        Analyze My Answer
-      </Button>
+      <div className="mt-2 flex flex-col gap-3 sm:flex-row">
+        <Button
+          type="submit"
+          className="w-full rounded-xl bg-[--sat-accent] text-white hover:bg-[--sat-accent-hover] sm:w-auto"
+        >
+          Analyze My Answer
+        </Button>
+        {hasAnalysis && (
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full rounded-xl border-[--sat-border] text-[--sat-accent] hover:bg-[--sat-bg] sm:w-auto"
+            onClick={() => onReset?.()}
+          >
+            Next Question
+          </Button>
+        )}
+      </div>
     </form>
   )
 }
