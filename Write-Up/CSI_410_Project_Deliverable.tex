@@ -329,4 +329,22 @@ PASSAGE: \{passage\} | QUESTION \& ANSWERS: \{question\} | STUDENT SELECTED: \{s
 
 The system prompt and configurable prompt layer are concatenated at runtime by the \texttt{create\_full\_prompt()} function in \texttt{prompt\_config.py}. The base \texttt{SYSTEM\_PROMPT} string is always loaded first and establishes the tutor's methods: Our project focused on process over answers. The test-specific \texttt{test\_context} from the \texttt{TEST\_CONFIGS} dictionary is then appended, injecting the relevant error patterns, guidance, and response structure. The resulting combined string is passed as the \texttt{system} parameter to the Anthropic API. Meanwhile, each test configuration also contains a \texttt{question\_template} with placeholder fields that get filled from the student's form submission and sent as the \texttt{user} message. The Flask backend (\texttt{app.py}) manages conversation history as an array of message objects, enabling multi-turn follow-up dialogue within a single session. This separation means that adding support for a new test (e.g., GRE, ACT, bar exam) requires only adding a new entry to \texttt{TEST\_CONFIGS}---the system prompt, API integration, and frontend remain unchanged. This is the core architectural insight: pedagogical behavior is decoupled from domain knowledge.
 
+\subsection{Student Roles and AI Usage}
+The majority of the work on this assignment was split by working together in the same space. There is not a clear delineation on who did what in our work since we both typed on the same methods on the same computer. This was also a relatively simple program on the backend so there was little need to go back on our own and individually to develop/refactor.
+
+\textbf{The work with clear delineation was as follows:}
+
+\begin{itemize}
+    \item \textbf{Noah}: Wrote the bulk of this .tex file documenting the project and development, with only minor edits from Akiva. (hi! -Akiva)
+    \item \textbf{Akiva}: Implemented some front-end changes separately, since the v0 account that generated the front end was on his laptop. Specifically, modified the UI to function more like a chatbot rather than a simple one-input, one-output forum response.
+\end{itemize}
+
+
+\textbf{AI Assistance}
+
+As suggested and demonstrated by our professor, we used a generative AI tool (specifically \texttt{v0} by Vercel) to develop the front end of our website. Due to limited experience with the libraries suggested by \texttt{v0} and with TypeScript, we also made limited use of VS Code’s IDE auto-completion features. The overall design and configuration of the backend were completed independently.
+
+    
+
+
 \end{document}
