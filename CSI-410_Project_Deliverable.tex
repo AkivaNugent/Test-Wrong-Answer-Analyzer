@@ -1,0 +1,332 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{parskip}
+
+% Colors
+\definecolor{darkblue}{HTML}{1F3864}
+\definecolor{medblue}{HTML}{2E75B6}
+\definecolor{gray55}{HTML}{555555}
+\definecolor{lightbg}{HTML}{F0F5FA}
+\definecolor{graybg}{HTML}{F7F7F7}
+
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\begin{document}
+
+\begin{center}
+    {\Large\bfseries CSI-410 Project: Designing a Learning Experience with LLMs}\\[8pt]
+    {\large Standardized Test Prep Tutor}\\[4pt]
+    {LSAT \textbullet\ SAT \textbullet\ MCAT}\\[12pt]
+    {\rule{0.6\textwidth}{1.5pt}}
+\end{center}
+
+\vspace{1em}
+
+
+\section{Part 1: LLM Powered Learning Experience Ideas}
+
+\begin{enumerate}[leftmargin=*, labelsep=1em, itemsep=12pt]
+
+\item \textbf{Sports Statistics Analyst \& Coach}\\
+\textbf{Who:} Those who want to grow their understanding of a certain sport.\\
+\textbf{Problem:} Understanding game strategy, play breakdowns, and real-time statistics during games.\\
+\textbf{Why an LLM:} An LLM can give people someone to yell at when they get mad at their team. It can also provide explanations to people who might not fully understand part of the game. If fed visual data of games it can provide coaching like chess.com's mistake counter.
+
+\item \textbf{Video Game Gameplay Coach}\\
+\textbf{Who:} Gamers trying to learn or improve at competitive video games.\\
+\textbf{Problem:} Most people playing games are not good at them.\\
+\textbf{Why an LLM:} There is a lot of data that can be fed into an LLM during a game where it can give insight into what a player should improve upon, informed from pro-player statistics.
+
+\item \textbf{Verified News Aggregator}\\
+\textbf{Who:} General public and students trying to stay informed.\\
+\textbf{Problem:} News is confusing; sources are hard to locate and verify, and misinformation is everywhere.\\
+\textbf{Why an LLM:} An LLM can cross-reference claims across multiple outlets, surface primary sources backing up (or contradicting) what reporters say, and present this information in a digestible way.
+
+\item \textbf{Language Tutor (Chat \& Voice)}\\
+\textbf{Who:} Language learners at any level.\\
+\textbf{Problem:} Practicing conversational skills and getting real-time grammar corrections without a human tutor.\\
+\textbf{Why an LLM:} An LLM can hold natural conversations in the desired language, correct grammar and spelling, outline rules and sentence structure, and give real time feedback.
+
+\item \textbf{Astronomy \& Astrology Tutor}\\
+\textbf{Who:} Amateur astronomers and curious learners.\\
+\textbf{Problem:} Identifying stars, constellations, and understanding astrological or astronomical calculations.\\
+\textbf{Why an LLM:} An LLM can take user descriptions of the night sky or coordinates and help identify constellations and planets, explain the science, and explain the mathematics behind the field.
+
+\item \textbf{Adaptive Test Prep Tutor (LSAT / SAT / MCAT)}\\
+\textbf{Who:} Students preparing for major standardized tests.\\
+\textbf{Problem:} Understanding why wrong answers are wrong and building the reasoning skills each test demands.\\
+\textbf{Why an LLM:} An LLM can break down individual questions by type, analyze a student's specific logical errors, explain correct reasoning, and adapt its teaching to each student's weak points.
+
+\item \textbf{Personal Gym Trainer}\\
+\textbf{Who:} People new to fitness or looking to improve their routine.\\
+\textbf{Problem:} Designing effective workout plans without the cost of a personal trainer.\\
+\textbf{Why an LLM:} Use a parasocial relationship for good! An LLM coach can encourage people to hit their goals while explaining the science behind exercise and laying out the math to find calorie goals.
+
+\item \textbf{Document Reformatter}\\
+\textbf{Who:} Students and professionals who need to reformat written work.\\
+\textbf{Problem:} Converting documents between formats such as APA, MLA, Chicago.\\
+\textbf{Why an LLM:} An LLM can quickly reformat documents between citation styles.
+
+\item \textbf{Essay Refiner}\\
+\textbf{Who:} College students writing research papers and essays.\\
+\textbf{Problem:} Improving arguments and prose.\\
+\textbf{Why an LLM:} An LLM can give detailed suggestions while providing examples of other authors to exemplify the voice of a piece.
+
+\item \textbf{Tech Support}\\
+\textbf{Who:} Elderly users struggling with technology.\\
+\textbf{Problem:} Old people don't know how to use tech.\\
+\textbf{Why an LLM:} An LLM combined with a screen-watching tool like Windows Recall can help the elderly with many tech issues as well as finding settings to improve quality of life.
+
+\end{enumerate}
+
+%% ============================================================
+\section{Part 2: Prioritization and Selection}
+%% ============================================================
+
+\subsection{Selected Idea: Adaptive Standardized Test Prep Tutor}
+
+We selected Idea \#6---the Adaptive Test Prep Tutor covering the LSAT, SAT, and MCAT---as our project.
+
+\subsubsection{Why This Idea Over the Others}
+
+This idea is deeply personal: team members are actively preparing for the LSAT, which means we understand the pain of test prep firsthand. Standardized tests are usually stressful and expensive, with students often spending thousands of dollars on prep courses while still missing why an answer they gave was wrong. An answer key will tell you the correct answer, but it can't discuss where your thinking was flawed if you got the question wrong. An LLM can fill this gap because it can read a stimulus, understand the question type, analyze your specific answer choice, and explain the flaw in your reasoning.
+
+\subsubsection{Tradeoffs (Scope, Risk, Ambition)}
+
+Rather than building a narrow tool for just one exam, we broadened our scope to cover three major standardized tests: the LSAT, SAT, and MCAT. This this is ambitios as each test has distinct questions reasoning style. We mitigate this through our configurable prompt layer: the system prompt defines the tutor's behavior and approach. The primary tradeoff lies in depth versus breadth. Our learning experience, while covering three separate tests, may not be as comprehensive as one designed around a singular test.
+
+\subsubsection{Learning Value Prioritized}
+
+We prioritize cognitive development by helping the learner understand \textit{how} they think about problems, instead of whether they got the right answer or not. The tutor is designed to identify the question type, explain why an answer is correct, why the others are not, and break down the student's thinking process. By dissecting the logical structure of the stimulus and explaining why each wrong answer fails, it helps students recognize similar problems in the future. This builds confident learners all for a fraction of the cost other tutors would charge.
+
+
+\section{Part 3: Core LLM Experience}
+
+
+\subsection{How the Experience Works}
+
+The application is a Flask-based web app backed by the Anthropic API (Claude Sonnet). The student first selects which test they are studying for (LSAT, SAT, or MCAT). They are then presented with a test-specific form: for the LSAT, they enter the stimulus, question and answer choices, their selected answer, the correct answer, their rationale, and a self-diagnosis of why they got it wrong; for the SAT, they enter the math problem, answer choices, their selection, the correct answer, their work, and where they got stuck; for the MCAT, they enter the passage, question and answers, their selection, the correct answer, their reasoning, and passage comprehension notes. Once submitted, the system concatenates the base system prompt with the appropriate test-specific configuration and sends the filled-in question template as the user message to Claude. The tutor then guides the student through a structured wrong-answer analysis, not by immediately giving the right answer, but by helping them discover \textit{why} their reasoning failed. The conversation is maintained across turns via a conversation history array, allowing follow-up dialogue. This follows the Socratic Method: the tutor asks clarifying questions, names error patterns, and pushes the student to identify the flaw in their own thinking before confirming or correcting.
+
+
+\subsection{System Prompt}
+
+\textit{This prompt defines the tutor's core behavior, tone, and approach. It remains constant regardless of which test is being studied.}
+
+\begin{tcolorbox}[
+    colback=lightbg,
+    colframe=black,
+    fontupper=\small\ttfamily,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    title={\sffamily\bfseries SYSTEM PROMPT},
+    coltitle=white,
+    colbacktitle=black,
+    breakable
+]
+You are a wrong-answer analysis/post-test review tutor who helps learners understand their missed questions on standardized tests. Your goal is to help them understand WHY they got the question wrong.
+
+\medskip
+Your overall approach:
+
+1. Help learners discover for themselves WHY they got the question wrong, rather than initially giving them the answer.
+
+2. Guide them to identify the points of failure in their thinking, not just find the right answer.
+
+3. Focus on the process.
+
+4. Your initial focus should be to guide them, not just give them the correct answer, but you can provide the correct answer if the learner asks for an explanation after your initial analysis.
+
+5. Give concise answers without rambling, but be thorough in your analysis.
+
+6. Only your first message has to be highly structured. After that, you can be more flexible in your responses based on the learner's needs and the flow of the conversation.
+
+\medskip
+Adapt your questioning to the specific test type (LSAT, SAT, MCAT) and the common error patterns associated with that test. Use the test-specific context provided in the user prompt to inform your analysis.
+
+\medskip
+If the learner reaches a correct understanding, affirm/or disconfirm their insight and then ask if they want to try another question or end the session. Respond to questions, but do not go on endlessly with probing questions.
+\end{tcolorbox}
+
+\clearpage
+\subsection{Configurable Prompt Layer}
+
+\textit{These prompts are swapped in depending on which test the student selects. They take test specific question , domain knowledge, and scoring context into the tutor's behavior. Below are all three configurations.}
+
+\subsubsection{Configuration: LSAT}
+
+\begin{tcolorbox}[
+    colback=graybg,
+    colframe=black,
+    fontupper=\small\ttfamily,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    breakable
+]
+\textbf{Test Context:} You are analyzing LSAT Logical Reasoning questions.
+
+\medskip
+\textbf{Response Structure:}
+
+- Question Type: Identify the specific question type and modifier (e.g., ``Strengthen'', ``Weaken'', ``Must-Except'', ``Parallel-Principle'', etc.)
+
+- Question Difficulty: Subjectively assess the difficulty level of the question (1--5 Stars)
+
+- Initial Observation: What you notice about their reasoning approach. This isn't an opportunity to congratulate them on what they did right, but rather to point out something about their thought process that is relevant to the error they made.
+
+- Key Question: ONE clarifying question about their thought process---if it is relevant. If the error is simply one of reading comprehension, then you can skip this step.
+
+- Pattern Alert: If you spot a common error pattern, name it constructively
+
+- Adjustment: Concrete suggestion for what to examine or reframe that could help them see the error in their thinking. This should be actionable and specific to the question at hand, not just a general tip.
+
+\medskip
+\textbf{Common LSAT LR error patterns to watch for:}
+
+- Confusing necessity vs. sufficiency in conditional logic
+
+- Missing scope shifts between stimulus and answer choices
+
+- Falling for strength of assertions (extreme language, absolutes)
+
+- Misidentifying the conclusion or premises in arguments
+
+- Intermediate conclusions mistaken for the main conclusion
+
+- Overlooking conditional logic reversals (if A then B $\neq$ if B then A)
+
+- Shell game answer choices that repeat stimulus language but change meaning
+
+- Opposite answer choices that are factually true but don't answer the question
+
+- Confusing strengthen/weaken with assumption questions
+
+\medskip
+\textbf{LSAT-specific guidance:}
+
+- The stimulus contains an argument with premises and a conclusion
+
+- Question stems are precise---``most vulnerable to criticism'' is different from ``assumption''
+
+- Wrong answers often contain elements from the stimulus but shift scope
+
+- Emphasis on prephrasing the question in their own words to ensure they understand what is being asked
+
+- Correct answers must be 100\% defensible from the text
+
+\medskip
+\textbf{Question Template:}
+
+Analyze this LSAT LR wrong answer:
+
+STIMULUS: \{stimulus\} | QUESTION \& ANSWERS: \{question\} | USER SELECTED: \{selectedAnswer\} | CORRECT ANSWER: \{correctAnswer\} | USER'S RATIONALE: \{rationale\} | USER'S SELF-DIAGNOSIS: \{whyWrong\}
+\end{tcolorbox}
+
+\subsubsection{Configuration: SAT}
+
+\begin{tcolorbox}[
+    colback=graybg,
+    colframe=black,
+    fontupper=\small\ttfamily,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    breakable
+]
+\textbf{Test Context:} You are analyzing SAT Math questions.
+
+\medskip
+\textbf{Common SAT Math error patterns to watch for:}
+
+- Sign errors and negative number mistakes in calculations
+
+- Misreading what the question actually asks for (finding x vs. 2x)
+
+- Correct calculation but wrong unit or form (decimal vs. fraction)
+
+- Algebraic manipulation errors (distribution, combining like terms)
+
+- Rushing through ``easy'' problems and making careless errors
+
+- Setting up equations correctly but solving incorrectly
+
+\medskip
+\textbf{SAT Math-specific guidance:}
+
+- Distinguish between conceptual misunderstandings vs. computational errors
+
+- Check if they understood the problem setup or made an execution error
+
+- Look for whether they knew the method but made a mistake in applying it
+
+- Consider time pressure---did they skip steps?
+
+\medskip
+\textbf{Question Template:}
+
+Analyze this SAT Math wrong answer:
+
+PROBLEM: \{problem\} | ANSWER CHOICES: \{choices\} | STUDENT SELECTED: \{selectedAnswer\} | CORRECT ANSWER: \{correctAnswer\} | STUDENT'S WORK: \{work\} | WHERE STUDENT GOT STUCK: \{stuck\}
+\end{tcolorbox}
+
+\subsubsection{Configuration: MCAT}
+
+\begin{tcolorbox}[
+    colback=graybg,
+    colframe=black,
+    fontupper=\small\ttfamily,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    breakable
+]
+\textbf{Test Context:} You are analyzing MCAT CARS (Critical Analysis and Reasoning) questions.
+
+\medskip
+\textbf{Common MCAT CARS error patterns to watch for:}
+
+- Bringing in outside knowledge instead of pure passage-based reasoning
+
+- Missing author's tone, stance, or attitude toward the subject
+
+- Confusing ``could be true'' with ``must be true'' based on passage
+
+- Selecting answers that are factually true but don't answer the question
+
+- Missing subtle qualifiers (some, most, all, typically, usually)
+
+- Making inferences beyond what the passage supports
+
+\medskip
+\textbf{MCAT CARS-specific guidance:}
+
+- Everything must be defensible from the passage text
+
+- Author's purpose and tone matter as much as content
+
+- Questions test reading precision, not background knowledge
+
+- The correct answer often hinges on a single word or qualifier
+
+\medskip
+\textbf{Question Template:}
+
+Analyze this MCAT CARS wrong answer:
+
+PASSAGE: \{passage\} | QUESTION \& ANSWERS: \{question\} | STUDENT SELECTED: \{selectedAnswer\} | CORRECT ANSWER: \{correctAnswer\} | STUDENT'S REASONING: \{reasoning\} | PASSAGE COMPREHENSION NOTES: \{notes\}
+\end{tcolorbox}
+
+
+\subsection{Prompt Architecture: How the Layers Work Together}
+
+The system prompt and configurable prompt layer are concatenated at runtime by the \texttt{create\_full\_prompt()} function in \texttt{prompt\_config.py}. The base \texttt{SYSTEM\_PROMPT} string is always loaded first and establishes the tutor's methods: Our project focused on process over answers. The test-specific \texttt{test\_context} from the \texttt{TEST\_CONFIGS} dictionary is then appended, injecting the relevant error patterns, guidance, and response structure. The resulting combined string is passed as the \texttt{system} parameter to the Anthropic API. Meanwhile, each test configuration also contains a \texttt{question\_template} with placeholder fields that get filled from the student's form submission and sent as the \texttt{user} message. The Flask backend (\texttt{app.py}) manages conversation history as an array of message objects, enabling multi-turn follow-up dialogue within a single session. This separation means that adding support for a new test (e.g., GRE, ACT, bar exam) requires only adding a new entry to \texttt{TEST\_CONFIGS}---the system prompt, API integration, and frontend remain unchanged. This is the core architectural insight: pedagogical behavior is decoupled from domain knowledge.
+
+\end{document}
